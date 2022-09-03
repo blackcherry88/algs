@@ -1,6 +1,6 @@
 package collection;
 
-import types.Person;
+import record.Person;
 
 import java.util.List;
 
