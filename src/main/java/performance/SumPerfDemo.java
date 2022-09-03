@@ -1,11 +1,8 @@
-package utils;
+package performance;
 
-
-
-import java.util.Comparator;
 
 // Hideously slow program! Can you spot the object creation? (Page 24)
-public class TestSum {
+public class SumPerfDemo {
     private static long sum() {
         long sum = 0L;
         for (long i = 0; i <= Integer.MAX_VALUE; i++)

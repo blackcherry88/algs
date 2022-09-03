@@ -1,6 +1,6 @@
-package utils;
+package enumdemo;
 
-public enum SingletonTest {
+public enum SingletonDemo {
     INSTANCE;
 
     public void leaveTheBuilding() {
@@ -8,6 +8,6 @@ public enum SingletonTest {
     }
 
     public static void main(String[] args) {
-        SingletonTest.INSTANCE.leaveTheBuilding();
+        SingletonDemo.INSTANCE.leaveTheBuilding();
     }
 }

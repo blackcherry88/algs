@@ -1,9 +1,9 @@
-package utils;
+package optionaldemo;
 
 import java.util.Optional;
 
 
-public class OptionalTest {
+public class OptionalDemo {
 
     public static void main(String[] args) {
         Optional<String> o1 = Optional.of("This is a sample text");

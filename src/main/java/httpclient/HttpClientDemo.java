@@ -10,7 +10,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-public class HttpClientExample {
+public class HttpClientDemo {
 
     public static void main(String[] args) throws Exception {
         // httpGetRequest();
