@@ -16,7 +16,6 @@ import java.lang.annotation.RetentionPolicy;
 // Interface
 @interface SourceRetention
 {
-    String value() default "Source Retention";
 }
 
 // Retention Annotation 2
@@ -25,7 +24,6 @@ import java.lang.annotation.RetentionPolicy;
 // Interface
 @interface ClassRetention
 {
-    String value() default "Class Retention";
 }
 
 // Retention Annotation 3
@@ -34,7 +32,6 @@ import java.lang.annotation.RetentionPolicy;
 // Interface
 @interface RuntimeRetention
 {
-    String value() default "Runtime Retention";
 }
 
 // Annotating classes A, B, and C
@@ -49,7 +46,7 @@ class B {
 
 @RuntimeRetention
 class C {
-};
+}
 
 // Main class
 public class RetentionPolicyDemo {
@@ -64,9 +61,9 @@ public class RetentionPolicyDemo {
         // runtime while array c will contain the
         // RuntimeRetention annotation as it was marked with
         // RUNTIME retention policy
-        Annotation a[] = new A().getClass().getAnnotations();
-        Annotation b[] = new B().getClass().getAnnotations();
-        Annotation c[] = new C().getClass().getAnnotations();
+        Annotation[] a = A.class.getAnnotations();
+        Annotation[] b = B.class.getAnnotations();
+        Annotation[] c = C.class.getAnnotations();
 
         // Printing the number of retained annotations of
         // each class at runtime
@@ -77,9 +74,9 @@ public class RetentionPolicyDemo {
         System.out.println("Number of annotations attached to class C at Runtime: " + c.length);
 
         // Since the class C is annotated with an annotation
-        // which has retention policy as runtime so it
+        // which has retention policy as runtime, so it
         // can be accessed during runtime while annotations
-        // of other two classes are discarded before runtime
+        // of other two classes are discarded before runtime,
         // so they can't be accessed
         System.out.println("Annotation attached to class C: " + c[0]);
     }
