@@ -1,4 +1,4 @@
-package features.collection.hashmap;
+package features.collection.map;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MapDemos {
+class MapTest {
 
     @Test
     public void changeMapValue() {
@@ -32,4 +32,17 @@ class MapDemos {
         assertTrue(e != null);
     }
 
+    @Test
+    public void forEachLoop() {
+        var m = new HashMap<String, Integer>();
+
+        String s = "a";
+        for(int i= 0; i < 10; ++i) {
+            var key = s + i;
+            m.put(key, i);
+        }
+        System.out.println(m);
+
+        m.forEach((k, v) -> System.out.println(k + "-->" + v));
+    }
 }

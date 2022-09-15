@@ -52,8 +52,9 @@ public class PhaseBarrierDemo implements Runnable {
             phaser.arriveAndAwaitAdvance();
         }
 
-        phaser.forceTermination();
-        System.out.println(Thread.currentThread().getName() + "waiting for all worker exits");
+        // phaser.forceTermination();
+        phaser.awaitAdvance(0);
+        System.out.println(Thread.currentThread().getName() + " waiting for all worker exits");
         sleep(10000);
     }
 }

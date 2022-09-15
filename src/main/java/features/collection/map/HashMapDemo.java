@@ -1,4 +1,4 @@
-package features.collection.hashmap;
+package features.collection.map;
 
 import java.util.Map;
 

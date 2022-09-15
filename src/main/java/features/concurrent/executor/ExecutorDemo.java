@@ -1,4 +1,6 @@
-package features.concurrent;
+package features.concurrent.executor;
+
+import features.concurrent.PrimeRunnable;
 
 import java.util.Random;
 import java.util.concurrent.Executor;

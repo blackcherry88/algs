@@ -4,30 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
-import java.util.stream.Collectors;
 
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
 public class CyclicBarrierDemo implements Runnable {
     volatile int cycle = 0;
-    CyclicBarrier entryBarrier;
-    CyclicBarrier exitBarrier;
+    CyclicBarrier barrier;
 
-    public CyclicBarrierDemo(CyclicBarrier entryBarrier, CyclicBarrier exitBarrier) {
-        this.entryBarrier = entryBarrier;
-        this.exitBarrier = exitBarrier;
+    public CyclicBarrierDemo(CyclicBarrier barrier) {
+        this.barrier = barrier;
     }
 
     @Override
     public void run() {
         var name = currentThread().getName();
-        while (true) {
+        while (!barrier.isBroken()) {
             try {
-                entryBarrier.await();
+                barrier.await();
                 sleep(1000);
                 System.out.println(name + " finished cycle " + cycle);
-                exitBarrier.await();
             } catch (InterruptedException e) {
                 break;
             } catch (BrokenBarrierException e) {
@@ -43,10 +39,9 @@ public class CyclicBarrierDemo implements Runnable {
         List<CyclicBarrierDemo> tasks = new ArrayList<>(size);
         List<Thread> workers = new ArrayList<>(size);
 
-        CyclicBarrier entryBarrier = new CyclicBarrier(size + 1);
-        CyclicBarrier exitBarrier = new CyclicBarrier(size + 1);
+        CyclicBarrier barrier = new CyclicBarrier(size + 1);
         for (int i = 0; i < size; ++i) {
-            var t = new CyclicBarrierDemo(entryBarrier, exitBarrier);
+            var t = new CyclicBarrierDemo(barrier);
             tasks.add(t);
             workers.add(new Thread(t, "Worker"+(i+1)));
         }
@@ -54,12 +49,10 @@ public class CyclicBarrierDemo implements Runnable {
 
         int cycles = 10;
         for (int i = 1; i <= cycles; ++i) {
-            entryBarrier.await();
-            exitBarrier.await();
+            barrier.await();
             final int c = i;
             tasks.forEach(t -> t.cycle = c);
         }
-
         workers.forEach(w -> w.interrupt());
         System.out.println(Thread.currentThread().getName() + "waiting for all worker exits");
         sleep(10000);
