@@ -1,12 +1,47 @@
 package features.collection.list;
 
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ArrayListDemo {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    public static void main(String[] args) {
+class ListTest {
+    @Test
+    void testIndexAccess() {
+        List<String> fruits = List.of("Banana", "Apple", "Mango", "Orange", "Watermelon", "Strawberry");
+
+        System.out.println("\n=== Iterate using for loop with index ===");
+        for (int i = 0; i < fruits.size(); i++) {
+            System.out.printf("fruits[%d]=%s\n", i, fruits.get(i));
+        }
+        assertEquals("Apple", fruits.get(1));
+    }
+
+    @Test
+    void testReplace() {
+        List<String> fruits = new ArrayList<>(
+                List.of("Banana", "Apple", "Mango", "Orange", "Watermelon", "Strawberry"));
+
+        fruits.replaceAll(e -> e + "1");
+        assertEquals("Apple1", fruits.get(1));
+    }
+
+    @Test
+    void testSort() {
+        List<String> fruits = new ArrayList<>(
+                List.of("Banana", "Apple", "Orange", "Mango", "Watermelon", "Strawberry"));
+
+        fruits.sort(String::compareTo);
+        System.out.println(fruits);
+        assertEquals("Apple", fruits.get(0));
+    }
+
+    @Test
+    void testIteration() {
         List<String> fruits = List.of("Banana", "Apple", "Mango", "Orange", "Watermelon", "Strawberry");
 
         System.out.println("\n=== Iterate using for loop with index ===");
@@ -41,4 +76,5 @@ public class ArrayListDemo {
         System.out.println("=== Iterate using Jave 8 forEach and lambda ===");
         fruits.forEach(e -> System.out.println(e));
     }
+
 }
