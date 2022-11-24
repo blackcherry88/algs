@@ -18,6 +18,8 @@ dependencies {
     implementation("org.apache.commons:commons-collections4:4.4")
     implementation("org.apache.logging.log4j:log4j-core:2.18.0")
     implementation("org.apache.logging.log4j:log4j-api:2.18.0")
+    implementation("org.jgrapht:jgrapht-core:1.5.1")
+    implementation("org.jgrapht:jgrapht-io:1.5.1")
     implementation("com.google.guava:guava:31.1-jre")
     testImplementation("org.mockito:mockito-core:4.7.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
