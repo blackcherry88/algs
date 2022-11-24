@@ -59,10 +59,10 @@ public class SimpleGraph<V> {
 
         for(var e : g.entrySet()) {
             builder.append(e.getKey().toString()).append(": ");
-            var vertices = e.getValue().stream()
+            var vString = e.getValue().stream()
                     .map(Object::toString)
-                    .collect(Collectors.toList());
-            builder.append(String.join(", ", vertices));
+                    .collect(Collectors.joining(","));
+            builder.append(vString);
             builder.append("\n");
         }
 
