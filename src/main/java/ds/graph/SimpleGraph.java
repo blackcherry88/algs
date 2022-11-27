@@ -1,33 +1,65 @@
 package ds.graph;
 
+import ds.util.ObjectIntMap;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class SimpleGraph<V> {
 
-    private final Map<V, Set<V>> g = new HashMap<>();
+    private final ObjectIntMap<V> obj2Index;
+    private final Map<Integer, Set<Integer>> g = new HashMap<>();
     private final boolean directed;
 
     public SimpleGraph(final boolean directed) {
         this.directed = directed;
+        this.obj2Index = new ObjectIntMap<>();
     }
 
     public void addVertex(final V v) {
-        g.put(v, new LinkedHashSet<>());
+        Integer index = obj2Index.put(v);
+        if (!g.containsKey(index)) {
+            g.put(index, new LinkedHashSet<>());
+        }
+    }
+
+    public List<V> getVertices() {
+        return obj2Index.getIndices();
+    }
+
+    public V getVertex(int index) {
+        return obj2Index.get(index);
+    }
+
+    public int getAnyVertexIndex() {
+        if (obj2Index.size() > 0) {
+            return 0;
+        }
+        return -1;
+    }
+
+    public Set<Integer> getNeighborIndices(int srcIndex) {
+        return g.get(srcIndex);
+    }
+
+    public V getAnyVertex() {
+        return obj2Index.keySet().iterator().next();
+    }
+
+    public List<V> getNeighbors(V v) {
+        Integer index = obj2Index.getIndex(v);
+        return g.get(index).stream().map(obj2Index::get).collect(Collectors.toList());
     }
 
     public void addEdge(final V source, final V destination) {
-        if (!g.containsKey(source)) {
-            addVertex(source);
-        }
+        addVertex(source);
+        addVertex(destination);
+        int srcIndex = obj2Index.getIndex(source);
+        int dstIndex = obj2Index.getIndex(destination);
 
-        if (!g.containsKey(destination)) {
-            addVertex(destination);
-        }
-
-        g.get(source).add(destination);
+        g.get(srcIndex).add(dstIndex);
         if (!directed) {
-            g.get(destination).add(source);
+            g.get(dstIndex).add(srcIndex);
         }
     }
 
@@ -46,17 +78,19 @@ public class SimpleGraph<V> {
     }
 
     public boolean hasVertex(V v) {
-        return g.containsKey(v);
+        return obj2Index.contains(v);
     }
 
     public boolean hasEdge(final V source, final V destination) {
-        return g.get(source).contains(destination);
+        int srcIndex = obj2Index.getIndex(source);
+        int dstIndex = obj2Index.getIndex(destination);
+        return g.get(srcIndex).contains(dstIndex);
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-
+        builder.append(obj2Index).append("\n");
         for(var e : g.entrySet()) {
             builder.append(e.getKey().toString()).append(": ");
             var vString = e.getValue().stream()
