@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public class HelloWorld {
+public class TestJGraph {
 
     public static void main(String[] args) throws URISyntaxException, ExportException {
         var g = createStringGraph();
